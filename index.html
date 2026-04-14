@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Happy Birthday Nandini ❤️</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial;
+            background: black;
+            color: white;
+            text-align: center;
+            overflow-x: hidden;
+        }
+
+        /* LOCK SCREEN */
+        #lockScreen {
+            position: fixed;
+            width: 100%;
+            height: 100%;
+            background: black;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        input {
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 10px;
+            text-align: center;
+        }
+
+        button {
+            padding: 12px 20px;
+            font-size: 16px;
+            background: pink;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            margin-top: 15px;
+        }
+
+        h1 {
+            margin-top: 60px;
+            animation: glow 2s infinite alternate;
+        }
+
+        @keyframes glow {
+            from { text-shadow: 0 0 10px #ff4da6; }
+            to { text-shadow: 0 0 25px #ff99cc; }
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        @keyframes zoomOut {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(0.9); opacity: 0; }
+        }
+
+        /* GALLERY */
+        .gallery {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gallery img {
+            width: 180px;
+            height: 260px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        /* CHAT */
+        #chatbox {
+            max-width: 90%;
+            margin: auto;
+            text-align: left;
+        }
+
+        .msg {
+            background: #222;
+            padding: 10px;
+            border-radius: 10px;
+            margin: 8px;
+            animation: fadeUp 0.5s forwards;
+        }
+
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* HEARTS */
+        .heart {
+            position: fixed;
+            animation: floatUp 5s linear infinite;
+        }
+
+        @keyframes floatUp {
+            from { transform: translateY(100vh); }
+            to { transform: translateY(-10vh); }
+        }
+
+        /* CLOSE BUTTON */
+        .closeBtn {
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 28px;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .closeBtn:hover {
+            color: pink;
+            transform: scale(1.2);
+        }
+    </style>
+</head>
+
+<body>
+
+<!-- LOCK -->
+<div id="lockScreen">
+    <h2>Enter Our Special Date 💖</h2>
+    <input type="text" id="dateInput" placeholder="dd-mm-yyyy">
+    <button onclick="checkDate()">Unlock 💕</button>
+    <p id="error" style="color:red;"></p>
+</div>
+
+<!-- MAIN -->
+<div id="mainContent" style="display:none;">
+
+    <h1>Happy Birthday Nandini ❤️🎂</h1>
+
+    <button onclick="startExperience()">Start 💖</button>
+
+    <p id="message"></p>
+    <p id="typing"></p>
+
+    <div id="chatbox"></div>
+
+    <button onclick="finalSurprise()">Final Surprise 💖</button>
+
+    <audio id="bgMusic" loop>
+        <source src="music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="gallery">
+        <img src="img1.jpeg">
+        <img src="img2.jpeg">
+        <img src="img3.jpeg">
+    </div>
+
+</div>
+
+<script>
+function checkDate() {
+    let input = document.getElementById("dateInput").value;
+
+    if (input === "14-02-2025") { 
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+    } else {
+        document.getElementById("error").innerText = "Try again {Secret: Its the day we confessed}💔";
+    }
+}
+
+function startExperience() {
+    let music = document.getElementById("bgMusic");
+    music.volume = 0;
+    music.play();
+
+    let vol = 0;
+    let fade = setInterval(() => {
+        if (vol < 1) {
+            vol += 0.05;
+            music.volume = vol;
+        } else clearInterval(fade);
+    }, 200);
+
+    document.getElementById("message").innerText =
+    "No matter how far you go, you’ll always be mine 💕";
+
+    typeEffect();
+    startChat();
+}
+
+let text = "From the moment I met you, my life changed forever... 💖";
+let i = 0;
+
+function typeEffect() {
+    if (i < text.length) {
+        document.getElementById("typing").innerHTML += text.charAt(i);
+        i++;
+        setTimeout(typeEffect, 40);
+    }
+}
+
+let messages = [
+    "Hey Nandini 💖",
+    "Do you remember our first conversation? 😄",
+    "I didn’t know you’d become this important...",
+    "But now you mean everything ❤️",
+    "No matter the distance 🌍",
+    "I’ll always be there for you 💕"
+];
+
+function startChat() {
+    let index = 0;
+    let box = document.getElementById("chatbox");
+
+    let interval = setInterval(() => {
+        if (index >= messages.length) return;
+
+        let div = document.createElement("div");
+        div.className = "msg";
+        div.innerText = messages[index];
+        box.appendChild(div);
+
+        index++;
+    }, 1200);
+}
+
+// HEARTS
+setInterval(() => {
+    let h = document.createElement("div");
+    h.innerHTML = "❤️";
+    h.className = "heart";
+    h.style.left = Math.random()*100+"vw";
+
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+}, 300);
+
+// FINAL
+function finalSurprise() {
+    let music = document.getElementById("bgMusic");
+    music.volume = 1;
+
+    let main = document.getElementById("mainContent");
+    main.style.filter = "blur(6px)";
+    main.style.opacity = "0.3";
+
+    let finalDiv = document.createElement("div");
+    finalDiv.id = "finalScreen";
+
+    finalDiv.style.position = "fixed";
+    finalDiv.style.top = "0";
+    finalDiv.style.left = "0";
+    finalDiv.style.width = "100%";
+    finalDiv.style.height = "100%";
+    finalDiv.style.display = "flex";
+    finalDiv.style.flexDirection = "column";
+    finalDiv.style.justifyContent = "center";
+    finalDiv.style.alignItems = "center";
+    finalDiv.style.zIndex = "9999";
+    finalDiv.style.opacity = "0";
+    finalDiv.style.transition = "1.5s";
+
+    finalDiv.innerHTML = `
+        <div style="position:relative; width:100%; height:100%; display:flex; flex-direction:column; justify-content:center; align-items:center;">
+
+            <div class="closeBtn" onclick="closeFinal()">✖</div>
+
+            <h1 style="font-size:42px; animation: glow 2s infinite alternate, zoomIn 1.5s ease;">
+                I Love You Nandini ❤️
+            </h1>
+
+            <p style="max-width:300px;font-size:20px;">
+                Happy Birthday 🎂✨<br><br>
+                You are my everything 💖
+            </p>
+
+        </div>
+    `;
+
+    document.body.appendChild(finalDiv);
+
+    setTimeout(() => finalDiv.style.opacity = "1", 100);
+
+    startFireworksBurst();
+}
+
+// CLOSE FINAL
+function closeFinal() {
+    let finalDiv = document.getElementById("finalScreen");
+
+    finalDiv.style.animation = "zoomOut 0.6s ease forwards";
+
+    setTimeout(() => {
+        finalDiv.remove();
+
+        let main = document.getElementById("mainContent");
+        main.style.filter = "none";
+        main.style.opacity = "1";
+    }, 600);
+}
+
+// FIREWORKS
+function startFireworksBurst() {
+    setInterval(() => {
+        createBurst(
+            Math.random() * window.innerWidth,
+            Math.random() * window.innerHeight
+        );
+    }, 800);
+}
+
+function createBurst(x, y) {
+    let colors = ["#ff4da6", "#ffccff", "#ffffff", "#ff99cc"];
+
+    for (let i = 0; i < 15; i++) {
+        let p = document.createElement("div");
+
+        p.style.position = "fixed";
+        p.style.left = x + "px";
+        p.style.top = y + "px";
+        p.style.width = "6px";
+        p.style.height = "6px";
+        p.style.borderRadius = "50%";
+        p.style.background = colors[Math.floor(Math.random()*colors.length)];
+
+        document.body.appendChild(p);
+
+        let angle = Math.random()*2*Math.PI;
+        let dist = Math.random()*120 + 50;
+
+        let xMove = Math.cos(angle)*dist;
+        let yMove = Math.sin(angle)*dist;
+
+        p.animate([
+            { transform: "translate(0,0)", opacity: 1 },
+            { transform: `translate(${xMove}px, ${yMove}px)`, opacity: 0 }
+        ], {
+            duration: 1500,
+            easing: "ease-out"
+        });
+
+        setTimeout(()=>p.remove(),1500);
+    }
+}
+</script>
+
+</body>
+</html>
