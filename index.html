@@ -191,21 +191,36 @@ function startExperience() {
     }, 200);
 
     document.getElementById("message").innerText =
-    "I never thought an exam phase would give me something so special....<br>but it gave me you💖";
+    "I never thought an exam phase would give me something so special....but it gave me you💖";
 
     typeEffect();
     startChat();
 }
 
-let text = "We started as just two people talking...<br>then calls happened...<br>then instagram happened....<br>and slowly, you became the most important part of my life💖";
-let i = 0;
-
+let lines = [
+    "We started as just two people talking...",
+    "Then calls happened...",
+    "Then Instagram happened...",
+    "And slowly, you became the most important part of my life 💖"
+];
 function typeEffect() {
-    if (i < text.length) {
-        document.getElementById("typing").innerHTML += text.charAt(i);
+    let i = 0;
+    let box = document.getElementById("typing");
+
+    function showLine() {
+        if (i >= lines.length) return;
+
+        let p = document.createElement("p");
+        p.style.animation = "fadeUp 0.8s forwards";
+        p.innerText = lines[i];
+
+        box.appendChild(p);
         i++;
-        setTimeout(typeEffect, 40);
+
+        setTimeout(showLine, 1200); // delay between lines
     }
+
+    showLine();
 }
 
 let messages = [
