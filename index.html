@@ -20,32 +20,20 @@
             height: 100%;
             background: black;
             display: flex;
-            flex-direction: column;
             justify-content: center;
             align-items: center;
-            z-index: 1000;
-        }
-
-        input {
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            margin-top: 10px;
-            text-align: center;
+            flex-direction: column;
         }
 
         button {
             padding: 12px 20px;
-            font-size: 16px;
             background: pink;
             border: none;
             border-radius: 20px;
-            cursor: pointer;
             margin-top: 15px;
         }
 
         h1 {
-            margin-top: 60px;
             animation: glow 2s infinite alternate;
         }
 
@@ -54,49 +42,11 @@
             to { text-shadow: 0 0 25px #ff99cc; }
         }
 
-        @keyframes zoomOut {
-            from { transform: scale(1); opacity: 1; }
-            to { transform: scale(0.9); opacity: 0; }
-        }
-
-        .gallery {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 30px;
-        }
-
-        .gallery img {
-            width: 180px;
-            height: 260px;
-            object-fit: cover;
-            border-radius: 20px;
-        }
-
-        #chatbox {
-            max-width: 90%;
-            margin: auto;
-            text-align: left;
-        }
-
-        #typing p {
-            margin: 8px 0;
-            font-size: 18px;
-            line-height: 1.5;
-        }
-
         .msg {
             background: #222;
             padding: 10px;
-            border-radius: 10px;
             margin: 8px;
-            animation: fadeUp 0.5s forwards;
-        }
-
-        @keyframes fadeUp {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            border-radius: 10px;
         }
 
         .heart {
@@ -116,7 +66,6 @@
             font-size: 28px;
             cursor: pointer;
         }
-
     </style>
 </head>
 
@@ -124,170 +73,99 @@
 
 <div id="lockScreen">
     <h2>Enter Our Special Date 💖</h2>
-    <input type="text" id="dateInput" placeholder="dd-mm-yyyy">
-    <button onclick="checkDate()">Unlock 💕</button>
-    <p id="error" style="color:red;"></p>
+    <input id="dateInput" placeholder="dd-mm-yyyy">
+    <button onclick="checkDate()">Unlock</button>
+    <p id="error"></p>
 </div>
 
 <div id="mainContent" style="display:none;">
 
-    <h1>Happy Birthday Nandini ❤️🎂</h1>
+    <h1>Happy Birthday Nandini ❤️</h1>
 
-    <button onclick="startExperience()">Start 💖</button>
+    <button onclick="startExperience()">Start</button>
 
     <p id="message"></p>
     <div id="typing"></div>
-
     <div id="chatbox"></div>
 
-    <button onclick="finalSurprise()">Final Surprise 💖</button>
+    <button onclick="finalSurprise()">Final Surprise</button>
 
     <audio id="bgMusic" loop>
-        <source src="music.mp3" type="audio/mpeg">
+        <source src="music.mp3">
     </audio>
 
     <audio id="finalSong">
-        <source src="Mysong.mp3" type="audio/mpeg">
+        <source src="Mysong.mp3">
     </audio>
-
-    <div class="gallery">
-        <img src="img1.jpeg">
-        <img src="img2.jpeg">
-        <img src="img3.jpeg">
-    </div>
 
 </div>
 
 <script>
 
 function checkDate() {
-    let input = document.getElementById("dateInput").value;
-
-    if (input === "14-02-2026") {
-        document.getElementById("lockScreen").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
+    if (document.getElementById("dateInput").value === "14-02-2026") {
+        lockScreen.style.display = "none";
+        mainContent.style.display = "block";
     } else {
-        document.getElementById("error").innerText = "Try again 💔";
+        error.innerText = "Try again 💔";
     }
 }
 
 function startExperience() {
     let music = document.getElementById("bgMusic");
-    music.volume = 0;
+    music.volume = 1;
     music.play();
-
-    let vol = 0;
-    let fade = setInterval(() => {
-        if (vol < 1) {
-            vol += 0.05;
-            music.volume = vol;
-        } else clearInterval(fade);
-    }, 200);
 
     document.getElementById("message").innerText =
     "I never thought an exam phase would give me something so special... but it gave me you 💖";
-
-    typeEffect();
-    startChat();
 }
 
-let lines = [
-    "We started as just two people talking...",
-    "Then calls happened...",
-    "Then Instagram happened...",
-    "And slowly, you became the most important part of my life 💖"
-];
-
-function typeEffect() {
-    let i = 0;
-    let box = document.getElementById("typing");
-
-    function showLine() {
-        if (i >= lines.length) return;
-
-        let p = document.createElement("p");
-        p.innerText = lines[i];
-        box.appendChild(p);
-
-        i++;
-        setTimeout(showLine, 1200);
-    }
-
-    showLine();
-}
-
-let messages = [
-    "Hey Nandini 💖",
-    "Do you remember those exam days?",
-    "Back then, I didn’t know you’d mean this much to me...",
-    "Then we started talking on Instagram 😄",
-    "And somehow… everything changed ❤️",
-    "You became my comfort, my happiness 💕",
-    "Now you’re going far away to Georgia 🌍",
-    "But distance can’t change what you mean to me 💖",
-    "I’ll always be right here for you… no matter what ❤️"
-];
-
-function startChat() {
-    let index = 0;
-    let box = document.getElementById("chatbox");
-
-    let interval = setInterval(() => {
-        if (index >= messages.length) return;
-
-        let div = document.createElement("div");
-        div.className = "msg";
-        div.innerText = messages[index];
-        box.appendChild(div);
-
-        index++;
-    }, 1200);
-}
-
-setInterval(() => {
-    let h = document.createElement("div");
-    h.innerHTML = "❤️";
-    h.className = "heart";
-    h.style.left = Math.random()*100+"vw";
-
-    document.body.appendChild(h);
-    setTimeout(()=>h.remove(),5000);
-}, 300);
-
+// FINAL SURPRISE
 function finalSurprise() {
+
     let main = document.getElementById("mainContent");
     main.style.filter = "blur(6px)";
     main.style.opacity = "0.3";
 
-    let finalDiv = document.createElement("div");
-    finalDiv.style.position = "fixed";
-    finalDiv.style.top = "0";
-    finalDiv.style.left = "0";
-    finalDiv.style.width = "100%";
-    finalDiv.style.height = "100%";
-    finalDiv.style.display = "flex";
-    finalDiv.style.flexDirection = "column";
-    finalDiv.style.justifyContent = "center";
-    finalDiv.style.alignItems = "center";
-    finalDiv.style.zIndex = "9999";
+    let div = document.createElement("div");
 
-    finalDiv.innerHTML = `
-        <div>
-            <div class="closeBtn" onclick="location.reload()">✖</div>
+    div.style.position = "fixed";
+    div.style.top = "0";
+    div.style.left = "0";
+    div.style.width = "100%";
+    div.style.height = "100%";
+    div.style.display = "flex";
+    div.style.justifyContent = "center";
+    div.style.alignItems = "center";
+    div.style.flexDirection = "column";
+    div.style.zIndex = "9999";
 
-            <h1>I made this for you ❤️</h1>
+    div.innerHTML = `
+        <div class="closeBtn" onclick="location.reload()">✖</div>
 
-            <p>It’s not perfect…<br>but it’s from my heart 💖</p>
+        <h1>I Love You Sooo Much Nandini ❤️</h1>
 
-            <button onclick="playMySong(this)">
-                ▶ Play
-            </button>
-        </div>
+        <p>
+            Happy Birthday Nanduuu 🎂✨ <br><br>
+            No matter how far you go,<br>
+            No matter how life changes...<br><br>
+            you'll always be my favorite person 💖
+        </p>
+
+        <p style="margin-top:20px;">
+            I made this for you… ❤️ <br>
+            It’s not perfect, but it’s from my heart 💖
+        </p>
+
+        <button onclick="playMySong(this)">
+            ▶ Play My Song
+        </button>
     `;
 
-    document.body.appendChild(finalDiv);
+    document.body.appendChild(div);
 }
 
+// PLAY SONG
 function playMySong(btn) {
 
     let bg = document.getElementById("bgMusic");
@@ -298,12 +176,12 @@ function playMySong(btn) {
             bg.volume -= 0.05;
         } else {
             bg.pause();
-            bg.currentTime = 0;
             clearInterval(fade);
         }
     }, 200);
 
     setTimeout(() => {
+        song.volume = 1;
         song.play().catch(() => {
             alert("Tap again 💖");
         });
@@ -311,6 +189,16 @@ function playMySong(btn) {
 
     btn.style.display = "none";
 }
+
+// HEARTS
+setInterval(() => {
+    let h = document.createElement("div");
+    h.innerHTML = "❤️";
+    h.className = "heart";
+    h.style.left = Math.random()*100+"vw";
+    document.body.appendChild(h);
+    setTimeout(()=>h.remove(),5000);
+}, 300);
 
 </script>
 
