@@ -13,6 +13,13 @@
             text-align: center;
             overflow-x: hidden;
         }
+        input {
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+            margin-top: 10px;
+            text-align: center;
+        }
 
         #lockScreen {
             position: fixed;
@@ -103,14 +110,15 @@
 <script>
 
 function checkDate() {
-    if (document.getElementById("dateInput").value === "14-02-2026") {
-        lockScreen.style.display = "none";
-        mainContent.style.display = "block";
+    let input = document.getElementById("dateInput").value;
+
+    if (input === "14-02-2026") {
+        document.getElementById("lockScreen").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
     } else {
-        error.innerText = "Try again 💔";
+        document.getElementById("error").innerText = "Try again 💔";
     }
 }
-
 function startExperience() {
     let music = document.getElementById("bgMusic");
     music.volume = 0;
