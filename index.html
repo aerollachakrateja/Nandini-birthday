@@ -113,13 +113,75 @@ function checkDate() {
 
 function startExperience() {
     let music = document.getElementById("bgMusic");
-    music.volume = 1;
+    music.volume = 0;
     music.play();
+
+    let vol = 0;
+    let fade = setInterval(() => {
+        if (vol < 1) {
+            vol += 0.05;
+            music.volume = vol;
+        } else clearInterval(fade);
+    }, 200);
 
     document.getElementById("message").innerText =
     "I never thought an exam phase would give me something so special... but it gave me you 💖";
+
+    typeEffect();   // ✅ IMPORTANT
+    startChat();    // ✅ IMPORTANT
+}
+let lines = [
+    "We started as just two people talking...",
+    "Then calls happened...",
+    "Then Instagram happened...",
+    "And slowly, you became the most important part of my life 💖"
+];
+
+function typeEffect() {
+    let i = 0;
+    let box = document.getElementById("typing");
+
+    function showLine() {
+        if (i >= lines.length) return;
+
+        let p = document.createElement("p");
+        p.innerText = lines[i];
+        box.appendChild(p);
+
+        i++;
+        setTimeout(showLine, 1200);
+    }
+
+    showLine();
 }
 
+let messages = [
+    "Hey Nandini 💖",
+    "Do you remember those exam days?",
+    "Back then, I didn’t know you’d mean this much to me...",
+    "Then we started talking on Instagram 😄",
+    "And somehow… everything changed ❤️",
+    "You became my comfort, my happiness 💕",
+    "Now you’re going far away to Georgia 🌍",
+    "But distance can’t change what you mean to me 💖",
+    "I’ll always be right here for you… no matter what ❤️"
+];
+
+function startChat() {
+    let index = 0;
+    let box = document.getElementById("chatbox");
+
+    let interval = setInterval(() => {
+        if (index >= messages.length) return;
+
+        let div = document.createElement("div");
+        div.className = "msg";
+        div.innerText = messages[index];
+        box.appendChild(div);
+
+        index++;
+    }, 1200);
+}
 // FINAL SURPRISE
 function finalSurprise() {
 
