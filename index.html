@@ -45,6 +45,7 @@
             align-items: center;
             flex-direction: column;
         }
+        
 
         button {
             padding: 12px 20px;
@@ -86,6 +87,20 @@
             right: 25px;
             font-size: 28px;
             cursor: pointer;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes zoomIn {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+        
+        @keyframes slowZoom {
+            from { transform: scale(0.9); }
+            to { transform: scale(1); }
         }
     </style>
 </head>
@@ -217,6 +232,7 @@ function finalSurprise() {
     main.style.opacity = "0.3";
 
     let div = document.createElement("div");
+    div.style.animation = "fadeIn 1.5s ease";
 
     div.style.position = "fixed";
     div.style.top = "0";
@@ -230,28 +246,35 @@ function finalSurprise() {
     div.style.zIndex = "9999";
 
     div.innerHTML = `
+        <div style="animation: slowZoom 3s ease forwards; text-align:center;">
+
         <div class="closeBtn" onclick="location.reload()">✖</div>
-
-        <h1>I Love You Sooo Much Nanduuuu ❤️</h1>
-
-        <p>
+    
+        <h1 style="animation: zoomIn 1.5s ease;">
+            I Love You Sooo Much Nanduuuu ❤️
+        </h1>
+    
+        <p style="animation: fadeIn 2s ease;">
             Happy Birthday Nanduuu 🎂✨ <br><br>
             No matter how far you go,<br>
             No matter how life changes...<br><br>
             you'll always be my favorite person 💖
         </p>
-
-        <p style="margin-top:20px; font-size:18px;">
+    
+        <p style="margin-top:20px; font-size:18px; animation: fadeIn 3s ease;">
             I wanted to give you something special... ❤️ <br>
             So I tried something I've never done before 💖
         </p>
         
-        <p style="margin-top:10px; font-size:16px; opacity:0.8;">
+        <p style="margin-top:10px; font-size:16px; opacity:0.8; animation: fadeIn 4s ease;">
             Just listen till the end... 🎧
         </p>
-        <button onclick="playMySong(this)">
-            ▶ Play something i made for you
+    
+        <button onclick="playMySong(this)" style="animation: fadeIn 5s ease;">
+            ▶ Play something I made for you
         </button>
+    
+    </div>
     `;
 
     document.body.appendChild(div);
