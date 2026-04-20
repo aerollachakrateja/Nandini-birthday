@@ -250,7 +250,7 @@ function finalSurprise() {
             Just listen till the end... 🎧
         </p>
         <button onclick="playMySong(this)">
-            ▶ Play something i madde for you
+            ▶ Play something i made for you
         </button>
     `;
 
@@ -288,6 +288,8 @@ function playMySong(btn) {
         }, 200);
     
     }, 800);
+    btn.style.display = "none";
+    }
 
 // HEARTS
 setInterval(() => {
